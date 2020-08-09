@@ -1,7 +1,6 @@
 (() => {
   console.log('fired!');
 
-  // variable stack -> get the shields / sigils first
   const sigils = document.querySelectorAll('.sigilContainer'),
         lightBox = document.querySelector('.lightbox'),
         closeButton = document.querySelector('.close-lightbox'),
@@ -12,8 +11,6 @@
 
 
 
-        // houseData is a multidimensional array (arrays within arrays!) Data containers can hold anything - in this case, each index or entry holds another, smaller container with 2 indexes - 1 with the house name, one with the house data.
-        // when you click on a shield, the dataset.offset property is a 0 through 5 that's pointing at the main index of the houseData array (stark, baratheon, lannister etc). so the syntax becomes houseData[offset][0] for the house name, and houseData[offset][1] for the house data. Each gets assigned to the h1 and the paragraph tag
 
   const houseData = [ // houseData[0][0] -> this is the house name ("stark")
         // houseData[0][1] -> this is the house data
@@ -57,29 +54,22 @@
 
     // make the lightbox close
     lightBox.classList.remove('show-lightbox');
-    houseVideo.currentTime = 0; // rewind the video
+    houseVideo.currentTime = 0; 
     houseVideo.pause();
   }
 
   function animateBanners() {
-    // we need an offset that we can multiply by to animate
-    // our banners to the left and make the active one show up
-
+    
     let offset = 600,
         multiplier = this.dataset.offset;
-        // this is the data-offset custom data attribute
-        // on each of the sigils
+       
     console.log((offset * multiplier) + "px");
 
-    // move the banners to the left using the product of our math
     bannerImages.style.right = `${offset * multiplier + "px"}`;
 
-    // change the house name on the page at the same time
-    //houseName.textContent = "House " + houseData[multiplier];
+    
 
-    // the multiplier is the outer array index (and also the data-offset custom attribute on
-    // the html element -> the shield you're clicking on);
-    // the second [] is the INNER array reference (see waaaaay up at the top) -> 0 is the house name, 1 is the house data
+   
     houseName.textContent = `House ${houseData[multiplier][0]}`;
     houseInfo.textContent = houseData[multiplier][1];
     houseVideo.src = houseData[multiplier][2];
@@ -89,7 +79,6 @@
 
 
 
-  //sigils.forEach(sigil => sigil.addEventListener("click", popLightBox));
   sigils.forEach(sigil => sigil.addEventListener("click", animateBanners));
 
 
